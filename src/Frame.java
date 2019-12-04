@@ -25,8 +25,9 @@ public class Frame extends JFrame{
         bg.setSize(sizeof_frame);
         bg.setVisible(true);
 
-        this.add(bg);
-        this.add(canvas);
-        canvas.setBackground(Color.gray);
+        this.add(canvas); // low priority
+        this.add(bg); // high priority
+
+        canvas.setBackground(Color.white);
     }
 }
