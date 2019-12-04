@@ -4,21 +4,29 @@ import javax.swing.*;
 public class Frame extends JFrame{
 
     Canvas canvas = new Canvas();
+    JPanel bg = new JPanel();
+    Dimension sizeof_frame = new Dimension(400, 400);
     public Frame(){
-		this.setSize(new Dimension(400, 400));
+		this.setSize(sizeof_frame);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBackground(Color.gray);
+        bg.setBackground(Color.black);
         
         this.setTitle("PixelPainter");
-        this.add(canvas);
 
 		this.setLayout(null);
 
 
-		canvas.setSize(new Dimension(20, 20));
+        canvas.setSize(new Dimension(200, 200));
+        canvas.setLocation(50, 50);
         canvas.setVisible(true);
         
-        canvas.setBackground(Color.black);
+
+        bg.setSize(sizeof_frame);
+        bg.setVisible(true);
+
+        this.add(bg);
+        this.add(canvas);
+        canvas.setBackground(Color.gray);
     }
 }
