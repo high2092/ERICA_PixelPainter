@@ -11,5 +11,11 @@ public class Frame extends JFrame{
         
         this.setTitle("PixelPainter");
         this.add(canvas);
+
+
+		canvas.setSize(new Dimension(20, 20));
+        canvas.setVisible(true);
+        
+        canvas.setBackground(Color.black);
     }
 }
