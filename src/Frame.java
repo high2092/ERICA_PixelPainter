@@ -16,6 +16,7 @@ public class Frame extends JFrame{
 		canvas.setSize(new Dimension(20, 20));
         canvas.setVisible(true);
         
+        this.setBackground(Color.gray);
         canvas.setBackground(Color.black);
     }
 }
