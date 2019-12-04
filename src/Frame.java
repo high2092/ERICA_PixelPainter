@@ -8,15 +8,17 @@ public class Frame extends JFrame{
 		this.setSize(new Dimension(400, 400));
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(Color.gray);
         
         this.setTitle("PixelPainter");
         this.add(canvas);
+
+		this.setLayout(null);
 
 
 		canvas.setSize(new Dimension(20, 20));
         canvas.setVisible(true);
         
-        this.setBackground(Color.gray);
         canvas.setBackground(Color.black);
     }
 }
