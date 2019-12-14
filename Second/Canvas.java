@@ -9,7 +9,7 @@ public class Canvas extends JPanel{
     
     public Canvas(){
         setSize(dim_c);
-        setLocation(0, 200);
+        // setLocation(0, 200);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 0; row < size; row++) {
@@ -17,7 +17,7 @@ public class Canvas extends JPanel{
                 gbc.gridx = col;
                 gbc.gridy = row;
 
-                CellPane cellPane = new CellPane();
+                Pixel pixel = new Pixel();
                 Border border = null;
                 if (row < size-1) {
                     if (col < size-1) {
@@ -32,18 +32,18 @@ public class Canvas extends JPanel{
                         border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
                     }
                 }
-                cellPane.setBorder(border);
-                add(cellPane, gbc);
+                pixel.setBorder(border);
+                add(pixel, gbc);
             }
         }
     }
 }
 
-class CellPane extends JPanel {
+class Pixel extends JPanel {
 
     private Color defaultBackground;
 
-    public CellPane() {
+    public Pixel() {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
