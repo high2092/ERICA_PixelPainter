@@ -4,12 +4,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Canvas extends JPanel{
-    int size = 40;
-    Dimension dim_c = new Dimension(350, 350);
+    int size = 100;
+    Dimension dim_c = new Dimension(760, 700);
     
     public Canvas(){
         setSize(dim_c);
-        setLocation(0, 50);
+        setLocation(0, 200);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 0; row < size; row++) {
