@@ -5,12 +5,25 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+
+
+import java.awt.Point;
+
 public class Frame extends JFrame{
     Dimension dim_f = new Dimension(900, 800);
 
     Canvas canvas = new Canvas();
 
     JMenuBar menubar = new JMenuBar();
+
+    JPanel statusPanel = new JPanel();
+    JLabel coordinate;
+    JLabel mode;
+
+
+    Point mouse = new Point(0,0);
 
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
@@ -22,7 +35,7 @@ public class Frame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Can-
-        canvas.setLocation(0, 70);
+        canvas.setLocation(0, 30);
         add(canvas);
         // -vas
 
@@ -35,6 +48,15 @@ public class Frame extends JFrame{
         // -bar
         JMenuItem save = new JMenuItem("Save");
         file.add(save);
+        // -Menuitem
+
+        
+        // Status-
+        statusPanel.setSize(new Dimension(900, 40));
+        statusPanel.setBackground(Color.gray);
+        statusPanel.setLocation(0, 690);
+        add(statusPanel);
+        // -Panel
         
 
 

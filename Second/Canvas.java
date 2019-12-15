@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Canvas extends JPanel{
-    int size = 100;
+    int size = 0; //?
     Dimension dim_c = new Dimension(760, 700);
     
     public Canvas(){
@@ -14,6 +14,7 @@ public class Canvas extends JPanel{
         GridBagConstraints gbc = new GridBagConstraints();
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
+                System.out.println("1");
                 gbc.gridx = col;
                 gbc.gridy = row;
 
@@ -21,9 +22,9 @@ public class Canvas extends JPanel{
                 Border border = null;
                 if (row < size-1) {
                     if (col < size-1) {
-                        border = new MatteBorder(1, 1, 0, 0, Color.BLACK);
+                        border = new MatteBorder(1, 1, 0, 0, Color.RED);
                     } else {
-                        border = new MatteBorder(1, 1, 0, 1, Color.BLACK);
+                        border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
                     }
                 } else {
                     if (col < size-1) {
