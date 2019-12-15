@@ -34,8 +34,17 @@ public class Frame extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+
+        // Status-
+        statusPanel.setSize(new Dimension(900, 40));
+        statusPanel.setBackground(Color.gray);
+        statusPanel.setLocation(0, 710);
+        add(statusPanel);
+        // -Panel
+
         // Can-
-        canvas.setLocation(0, 30);
+        canvas.setLocation(0, 60);
         add(canvas);
         // -vas
 
@@ -51,12 +60,6 @@ public class Frame extends JFrame{
         // -Menuitem
 
         
-        // Status-
-        statusPanel.setSize(new Dimension(900, 40));
-        statusPanel.setBackground(Color.gray);
-        statusPanel.setLocation(0, 690);
-        add(statusPanel);
-        // -Panel
         
 
 

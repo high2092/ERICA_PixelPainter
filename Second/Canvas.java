@@ -4,8 +4,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Canvas extends JPanel{
-    int size = 0; //?
-    Dimension dim_c = new Dimension(760, 700);
+    int size = 65; //?
+    Dimension dim_c = new Dimension(710, 650);
     
     public Canvas(){
         setSize(dim_c);
@@ -22,15 +22,15 @@ public class Canvas extends JPanel{
                 Border border = null;
                 if (row < size-1) {
                     if (col < size-1) {
-                        border = new MatteBorder(1, 1, 0, 0, Color.RED);
+                        border = new MatteBorder(1, 1, 0, 0, Color.black);
                     } else {
-                        border = new MatteBorder(1, 1, 0, 1, Color.GRAY);
+                        border = new MatteBorder(1, 1, 0, 1, Color.black);
                     }
                 } else {
                     if (col < size-1) {
-                        border = new MatteBorder(1, 1, 1, 0, Color.BLACK);
+                        border = new MatteBorder(1, 1, 1, 0, Color.black);
                     } else {
-                        border = new MatteBorder(1, 1, 1, 1, Color.BLACK);
+                        border = new MatteBorder(1, 1, 1, 1, Color.black);
                     }
                 }
                 pixel.setBorder(border);
