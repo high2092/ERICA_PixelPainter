@@ -33,6 +33,8 @@ public class Frame extends JFrame{
         menubar.add(file);
         setJMenuBar(menubar);
         // -bar
+        JMenuItem save = new JMenuItem("Save");
+        file.add(save);
         
 
 
