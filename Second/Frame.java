@@ -22,7 +22,7 @@ public class Frame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Can-
-        canvas.setLocation(0, 100);
+        canvas.setLocation(0, 70);
         add(canvas);
         // -vas
 
