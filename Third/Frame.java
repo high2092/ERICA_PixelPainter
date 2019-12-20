@@ -139,4 +139,25 @@ public class Frame extends JFrame{
             coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
         }
     }
+
+    class Pencil{
+        Color color;
+        int thickness;
+        public Pencil(){
+            color = Color.black;
+            thickness = 1;
+        }
+        public void setColor(){
+            
+        }
+        public Color getColor(){
+            return color;
+        }
+        public void setThick(){
+            
+        }
+        public int getThick(){
+            return thickness;
+        }
+    }
 }
