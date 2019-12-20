@@ -37,11 +37,17 @@ public class Frame extends JFrame{
 
 
         // Status-
+        coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
+        statusPanel.add(coordinate);
+        // statusPanel.setLayout(null);
+        // coordinate.setLocation(700, 0);
+        // --
         statusPanel.setSize(new Dimension(900, 40));
         statusPanel.setBackground(Color.gray);
         statusPanel.setLocation(0, 710);
         add(statusPanel);
         // -Panel
+
 
         // Can-
         canvas.setLocation(0, 60);
