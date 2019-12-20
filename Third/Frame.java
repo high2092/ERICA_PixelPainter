@@ -29,6 +29,8 @@ public class Frame extends JFrame{
     JLabel coordinate;
     JLabel mode;
 
+    Pencil pencil = new Pencil();
+
 
     Point mouse = new Point(0,0);
 
@@ -119,6 +121,25 @@ public class Frame extends JFrame{
         private Color defaultBackground;
     
         public Pixel() {
+            // addMouseListener(new MouseAdapter() {
+            //     @Override
+            //     public void mouseEntered(MouseEvent e) {
+            //         defaultBackground = getBackground();
+            //         setBackground(Color.black);
+            //     }
+    
+            //     @Override
+            //     public void mouseClicked(MouseEvent e) {
+            //         setBackground(Color.black);
+            //         defaultBackground = getBackground();
+            //     }
+    
+            //     @Override
+            //     public void mouseExited(MouseEvent e) {
+            //         setBackground(defaultBackground);
+            //     }
+            // });
+
             addMouseListener(ml);
         }
     }
