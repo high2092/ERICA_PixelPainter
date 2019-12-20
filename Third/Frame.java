@@ -36,7 +36,7 @@ public class Frame extends JFrame{
 
     // MouseListener ml = new MouseListener();
 
-    Color defaultBackground = Color.WHITE;
+    // Color defaultBackground = Color.WHITE;
 
 
     public Frame(){
@@ -120,20 +120,25 @@ public class Frame extends JFrame{
     }
     
     class Pixel extends JPanel {
-    
+        private Color defaultBackground;
         public Pixel() {
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JPanel p = (JPanel)e.getSource();
-                    defaultBackground = getBackground();
-                    p.setBackground(Color.RED);
-                    // setBackground(Color.black);
+                    // JPanel p = (JPanel)e.getSource();
+                    // defaultBackground = getBackground();
+                    // p.setBackground(Color.RED);
+                    setBackground(pencil.getColor());
                 }
     
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    setBackground(Color.black);
+                    if(defaultBackground == pencil.getColor()){
+                        setBackground(new Color(245, 245, 245));
+                    }
+                    else{
+                        setBackground(pencil.getColor());
+                    }
                     defaultBackground = getBackground();
                 }
     
