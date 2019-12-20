@@ -36,6 +36,7 @@ public class Frame extends JFrame{
 
     MouseListener ml = new MouseListener();
 
+
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
         setLocation(400, 400);
@@ -121,33 +122,43 @@ public class Frame extends JFrame{
         private Color defaultBackground;
     
         public Pixel() {
-            // addMouseListener(new MouseAdapter() {
-            //     @Override
-            //     public void mouseEntered(MouseEvent e) {
-            //         defaultBackground = getBackground();
-            //         setBackground(Color.black);
-            //     }
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    JPanel p = (JPanel)e.getSource();
+                    defaultBackground = getBackground();
+                    p.setBackground(Color.RED);
+                    // setBackground(Color.black);
+                }
     
-            //     @Override
-            //     public void mouseClicked(MouseEvent e) {
-            //         setBackground(Color.black);
-            //         defaultBackground = getBackground();
-            //     }
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    setBackground(Color.black);
+                    defaultBackground = getBackground();
+                }
     
-            //     @Override
-            //     public void mouseExited(MouseEvent e) {
-            //         setBackground(defaultBackground);
-            //     }
-            // });
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    setBackground(defaultBackground);
+                }
+            });
 
             addMouseListener(ml);
         }
     }
 
     class MouseListener extends MouseAdapter implements MouseMotionListener{
+        public void mouseClicked(MouseEvent e){
+            JPanel p = (JPanel)e.getSource();
+            System.out.println(p);
+            p.getBackground();
+            p.setBackground(Color.BLACK);
+        }
     
         public void mousePressed(MouseEvent e){
-            
+            JPanel p = (JPanel)e.getSource();
+            p.getBackground();
+            p.setBackground(Color.BLACK);
         }
     
         public void mouseDragged(MouseEvent e){
@@ -155,6 +166,8 @@ public class Frame extends JFrame{
         }
     
         public void mouseMoved(MouseEvent e){
+            JPanel p = (JPanel)e.getSource();
+            p.setBackground(Color.BLACK);
             // System.out.println("(" + mouse.getX() + ", " + mouse.getY() + ")");
             mouse = e.getPoint();
             coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
