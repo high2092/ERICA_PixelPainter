@@ -34,7 +34,9 @@ public class Frame extends JFrame{
 
     Point mouse = new Point(0,0);
 
-    MouseListener ml = new MouseListener();
+    // MouseListener ml = new MouseListener();
+
+    Color defaultBackground = Color.WHITE;
 
 
     public Frame(){
@@ -80,11 +82,11 @@ public class Frame extends JFrame{
     class Canvas extends JPanel{
         int size = 64; //?
         Dimension dim_c = new Dimension(704, 704);
-        MouseListener ml = new MouseListener();
+        // MouseListener ml = new MouseListener();
         
         public Canvas(){
             // addMouseListener(ml);
-            addMouseMotionListener(ml);
+            // addMouseMotionListener(ml);
             setSize(dim_c);
             // setLocation(0, 200);
             setLayout(new GridBagLayout());
@@ -119,8 +121,6 @@ public class Frame extends JFrame{
     
     class Pixel extends JPanel {
     
-        private Color defaultBackground;
-    
         public Pixel() {
             addMouseListener(new MouseAdapter() {
                 @Override
@@ -143,40 +143,34 @@ public class Frame extends JFrame{
                 }
             });
 
-            addMouseListener(ml);
+            // addMouseListener(ml);
         }
     }
 
-    class MouseListener extends MouseAdapter implements MouseMotionListener{
-        public void mouseClicked(MouseEvent e){
-            JPanel p = (JPanel)e.getSource();
-            System.out.println(p);
-            p.getBackground();
-            p.setBackground(Color.BLACK);
-        }
-    
-        public void mousePressed(MouseEvent e){
-            JPanel p = (JPanel)e.getSource();
-            p.getBackground();
-            p.setBackground(Color.BLACK);
-        }
-    
-        public void mouseDragged(MouseEvent e){
-    
-        }
-    
-        public void mouseMoved(MouseEvent e){
-            JPanel p = (JPanel)e.getSource();
-            p.setBackground(Color.BLACK);
-            // System.out.println("(" + mouse.getX() + ", " + mouse.getY() + ")");
-            mouse = e.getPoint();
-            coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
-        }
-    }
+    // class MouseListener extends MouseAdapter implements MouseMotionListener{
+    //     @Override
+    //     public void mouseEntered(MouseEvent e) {
+    //         JPanel p = (JPanel)e.getSource();
+    //         defaultBackground = getBackground();
+    //         p.setBackground(Color.RED);
+    //         // setBackground(Color.black);
+    //     }
+
+    //     @Override
+    //     public void mouseClicked(MouseEvent e) {
+    //         setBackground(Color.black);
+    //         defaultBackground = getBackground();
+    //     }
+
+    //     @Override
+    //     public void mouseExited(MouseEvent e) {
+    //         setBackground(defaultBackground);
+    //     }
+    // }
 
     class Pencil{
-        Color color;
-        int thickness;
+        private Color color;
+        private int thickness;
         public Pencil(){
             color = Color.black;
             thickness = 1;
