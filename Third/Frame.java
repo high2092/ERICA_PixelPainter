@@ -61,7 +61,7 @@ public class Frame extends JFrame{
 
 
         // Can-
-        canvas.setLocation(0, 60);
+        canvas.setLocation(0, 6);
         add(canvas);
         // -vas
 
@@ -77,12 +77,12 @@ public class Frame extends JFrame{
         // -Menuitem
     }
     class Canvas extends JPanel{
-        int size = 65; //?
-        Dimension dim_c = new Dimension(710, 650);
+        int size = 64; //?
+        Dimension dim_c = new Dimension(704, 704);
         MouseListener ml = new MouseListener();
         
         public Canvas(){
-            addMouseListener(ml);
+            // addMouseListener(ml);
             addMouseMotionListener(ml);
             setSize(dim_c);
             // setLocation(0, 200);
@@ -90,7 +90,7 @@ public class Frame extends JFrame{
             GridBagConstraints gbc = new GridBagConstraints();
             for (int row = 0; row < size; row++) {
                 for (int col = 0; col < size; col++) {
-                    System.out.println("1");
+                    // System.out.println("1");
                     gbc.gridx = col;
                     gbc.gridy = row;
     
@@ -155,7 +155,7 @@ public class Frame extends JFrame{
         }
     
         public void mouseMoved(MouseEvent e){
-            System.out.println("(" + mouse.getX() + ", " + mouse.getY() + ")");
+            // System.out.println("(" + mouse.getX() + ", " + mouse.getY() + ")");
             mouse = e.getPoint();
             coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
         }
