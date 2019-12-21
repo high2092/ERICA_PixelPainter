@@ -73,11 +73,11 @@ public class Frame extends JFrame{
         optionPanel.add(setcolor);
 
         clear.setSize(dim_button);
-        clear.setLocation(123, 137);
+        clear.setLocation(123, 520);
         clear.addActionListener(new ButtonAction());
         optionPanel.add(clear);
         eraser.setSize(dim_button);
-        eraser.setBackground(new Color(240, 240, 240));
+        eraser.setBackground(new Color(238, 238, 238));
         eraser.setLocation(123, 70);
         eraser.addActionListener(new ButtonAction());
         optionPanel.add(eraser);
@@ -209,7 +209,7 @@ public class Frame extends JFrame{
                         setBackground(pencil.getColor());
                     }
                     else{
-                        setBackground(new Color(240, 240, 240));
+                        setBackground(new Color(238, 238, 238));
                     }
                     if(mousestatus == 1){
                         defaultBackground = getBackground();
@@ -228,15 +228,23 @@ public class Frame extends JFrame{
                 // }
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if(pencilstatus == 0){
-                        setBackground(new Color(240, 240, 240));
+                    // System.out.println(SwingUtilities.isLeftMouseButton(e));
+                    if(SwingUtilities.isLeftMouseButton(e)){
+                        if(pencilstatus == 0){
+                            setBackground(new Color(238, 238, 238));
+                        }
+                        else{
+                            setBackground(pencil.getColor());
+                        }
+                        defaultBackground = getBackground();
+                        mousestatus = 1;
+                        mouselabel.setText("Mouse Pressed: " + mousestatus);
                     }
-                    else{
-                        setBackground(pencil.getColor());
+                    else{ // RightMouseButton
+                        pencil.setColor(defaultBackground);
+                        pencilstatus = 1;
+                        mode.setText("Mode: PENCIL // ");
                     }
-                    defaultBackground = getBackground();
-                    mousestatus = 1;
-                    mouselabel.setText("Mouse Pressed: " + mousestatus);
                 }
                 @Override
                 public void mouseReleased(MouseEvent e) {
@@ -246,7 +254,7 @@ public class Frame extends JFrame{
                     // else{
                     //     setBackground(pencil.getColor());
                     // }
-                    defaultBackground = getBackground();
+                    // defaultBackground = getBackground();
                     mousestatus = 0;
                     mouselabel.setText("Mouse Pressed: " + mousestatus);
                 }
@@ -269,8 +277,8 @@ public class Frame extends JFrame{
             // addMouseListener(ml);
         }
         public void Clear(){
-            setBackground(new Color(240, 240, 240));
-            defaultBackground = new Color(240, 240, 240);
+            setBackground(new Color(238, 238, 238));
+            defaultBackground = new Color(238, 238, 238);
         }
     }
 
