@@ -268,10 +268,6 @@ public class Frame extends JFrame{
                     // coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
                     setBackground(defaultBackground);
                 }
-                @Override // not work
-                public void mouseMoved(MouseEvent e){
-                    // System.out.println(mouse.getX());
-                }
             });
 
             // addMouseListener(ml);
@@ -312,9 +308,12 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
+            if(c == null) c = new Color(238, 238, 238);
+            else{
+                pencilstatus = 1;
+                mode.setText("Mode: PENCIL // ");
+            }
             setcolor.setBackground(c);
-            pencilstatus = 1;
-            mode.setText("Mode: PENCIL // ");
         }
         public Color getColor(){
             return color;
