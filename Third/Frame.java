@@ -42,6 +42,7 @@ public class Frame extends JFrame{
     // Color defaultBackground = Color.WHITE;
 
     JButton setcolor = new JButton("");
+    JButton clear = new JButton("C");
 
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
@@ -67,6 +68,11 @@ public class Frame extends JFrame{
         setcolor.setLocation(123, 3);
         setcolor.addActionListener(new ButtonAction());
         optionPanel.add(setcolor);
+
+        clear.setSize(new Dimension(64, 64));
+        clear.setLocation(123, 70);
+        clear.addActionListener(new ButtonAction());
+        optionPanel.add(clear);
         // -Button
 
 
@@ -118,7 +124,7 @@ public class Frame extends JFrame{
         int size = 64; //?
         Dimension dim_c = new Dimension(704, 704);
         // MouseListener ml = new MouseListener();
-        
+        Pixel[][] pixels = new Pixel[64][64];
         public Canvas(){
             // addMouseListener(ml);
             // addMouseMotionListener(ml);
@@ -149,6 +155,7 @@ public class Frame extends JFrame{
                     }
                     pixel.setBorder(border);
                     add(pixel, gbc);
+                    pixels[row][col] = pixel;
                 }
             }
             // pack()
@@ -271,7 +278,16 @@ public class Frame extends JFrame{
 
     class ButtonAction implements ActionListener{
         public void actionPerformed (ActionEvent e){
-            pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
+            JButton button = (JButton)e.getSource();
+            String temp = button.getText();
+            if(temp == "") pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
+            else if(temp == "C"){
+                for(int i = 0; i < 64; i++){
+                    for(int j = 0; j < 64; j++){
+                        canvas.pixels[i][j].setBackground(new Color(240, 240, 240));
+                    }
+                }
+            }
         }
     }
 
