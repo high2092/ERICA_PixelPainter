@@ -20,7 +20,7 @@ import javax.swing.border.*;
 
 public class Frame extends JFrame{
     Dimension dim_f = new Dimension(900, 800);
-
+    Dimension dim2 = new Dimension(190, 704);
     Canvas canvas = new Canvas();
 
     JMenuBar menubar = new JMenuBar();
@@ -34,6 +34,8 @@ public class Frame extends JFrame{
 
     Point mouse = new Point(0,0);
 
+
+    JPanel optionPanel = new JPanel();
     // MouseListener ml = new MouseListener();
 
     // Color defaultBackground = Color.WHITE;
@@ -48,7 +50,12 @@ public class Frame extends JFrame{
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+        // Option-
+        optionPanel.setLocation(710, 6);
+        optionPanel.setSize(dim2);
+        optionPanel.setBackground(new Color(230, 230, 230));
+        add(optionPanel);
+        // -Panel
 
         // Status-
         coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
@@ -129,7 +136,7 @@ public class Frame extends JFrame{
                     // defaultBackground = getBackground();
                     // p.setBackground(Color.RED);
                     mouse = e.getPoint();
-                    coordinate.setText("(" + mouse.getX()/11 + ", " + mouse.getY()/11 + ")");
+                    coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
                     setBackground(pencil.getColor());
                 }
     
