@@ -45,6 +45,7 @@ public class Frame extends JFrame{
     JButton setcolor = new JButton("");
     JButton clear = new JButton("C");
     JButton eraser = new JButton("");
+    JButton bucket = new JButton("B");
 
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
@@ -81,6 +82,10 @@ public class Frame extends JFrame{
         eraser.setLocation(123, 70);
         eraser.addActionListener(new ButtonAction());
         optionPanel.add(eraser);
+        bucket.setSize(dim_button);
+        bucket.setLocation(123, 140);
+        bucket.addActionListener(new ButtonAction());
+        optionPanel.add(bucket);
         // -Button
 
 
@@ -215,7 +220,7 @@ public class Frame extends JFrame{
                 @Override
                 public void mousePressed(MouseEvent e) {
                     // System.out.println(SwingUtilities.isLeftMouseButton(e));
-                    System.out.println(getBackground());
+                    // System.out.println(getBackground());
                     if(SwingUtilities.isLeftMouseButton(e)){
                         if(pencilstatus == 0){
                             setBackground(null);
@@ -316,6 +321,16 @@ public class Frame extends JFrame{
                     }
                 }
             }
+            else if(button == bucket){
+                if(pencilstatus == 2){
+                    pencilstatus = 1;
+                    mode.setText("Mode: PENCIL // ");
+                } 
+                else{
+                    pencilstatus = 2;
+                    mode.setText("Mode: BUCKET // ");
+                }
+            }
         }
     }
 
@@ -389,19 +404,19 @@ public class Frame extends JFrame{
         pixel.setDefault(pixel.getBackground());
         Queue queue = new Queue(64*64);
         queue.enqueue(row, col);
-        while(!queue.isEmpty()){
-            // Pixel 
-            int fr = queue.dequeue().row, fc = queue.dequeue().col;
-            for(int i = 0; i < 4; i++){
-                int rr = fr + dir[i][0], cc = fc + dir[i][1];
-                if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
-                pixel = canvas.pixels[rr][cc];
-                if(pixel.getBackground() == null || pixel.getBackground() == ink){
-                    pixel.setBackground(pencil.getColor());
-                    pixel.setDefault(pixel.getBackground());
-                    queue.enqueue(rr, cc);
-                }
-            }
-        }
+        // while(!queue.isEmpty()){
+        //     // Pixel 
+        //     int fr = queue.dequeue().row, fc = queue.dequeue().col;
+        //     for(int i = 0; i < 4; i++){
+        //         int rr = fr + dir[i][0], cc = fc + dir[i][1];
+        //         if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
+        //         pixel = canvas.pixels[rr][cc];
+        //         if(pixel.getBackground() == null || pixel.getBackground() == ink){
+        //             pixel.setBackground(pencil.getColor());
+        //             pixel.setDefault(pixel.getBackground());
+        //             queue.enqueue(rr, cc);
+        //         }
+        //     }
+        // }
     }
 }
