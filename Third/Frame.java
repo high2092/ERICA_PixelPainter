@@ -246,7 +246,7 @@ public class Frame extends JFrame{
                 public void mouseClicked(MouseEvent e) {
                     // System.out.println((int)mouse.getY()/11);
                     if(pencilstatus == 2){
-                        BFS(canvas.pixels[(int)mouse.getY()/11][(int)mouse.getX()/11]);
+                        BFS((int)mouse.getY()/11, (int)mouse.getX()/11);
                     }
                 }
             });
@@ -254,6 +254,10 @@ public class Frame extends JFrame{
         public void Clear(){
             setBackground(new Color(238, 238, 238));
             defaultBackground = new Color(238, 238, 238);
+        }
+
+        public void setDefault(Color c){
+            defaultBackground = c;
         }
     }
 
@@ -337,31 +341,39 @@ public class Frame extends JFrame{
     }
     
     class Queue{
-        
-        private int front;
+
         private int rear;
         private int size;
-        private Pixel[] queue;
+
+        private class Pair{
+            private int row;
+            private int col;
+            public Pair(int r, int c){
+                row = r;
+                col = c;
+            }
+        }
+        private Pair[] queue;
     
 
         public Queue(int i){
             // front = -1;
             rear = 0;
             size = i;
-            queue = new Pixel[size];
+            queue = new Pair[size];
         }
 
         public boolean isEmpty(){
             return rear == 0;
         }
 
-        public void enqueue(Pixel item){
-            queue[rear++] = item;
+        public void enqueue(int row, int col){
+            queue[rear++] = new Pair(row, col);
         }
 
-        public Pixel dequeue(){
+        public Pair dequeue(){
             // if(isEmpty()) return null;
-            Pixel ans = queue[0];
+            Pair ans = queue[0];
             for(int i = 1; i < rear; i++){
                 queue[i-1] = queue[i]; 
             }
@@ -369,7 +381,27 @@ public class Frame extends JFrame{
             return ans;
         }
     }
-    public void BFS(Pixel pixel){
-
+    public void BFS(int row, int col){
+        int[][] dir = {{1,-1,0,0}, {0,0,1,-1}};
+        Pixel pixel = canvas.pixels[row][col];
+        Color ink = pixel.getBackground();
+        pixel.setBackground(pencil.getColor());
+        pixel.setDefault(pixel.getBackground());
+        Queue queue = new Queue(64*64);
+        queue.enqueue(row, col);
+        while(!queue.isEmpty()){
+            // Pixel 
+            int fr = queue.dequeue().row, fc = queue.dequeue().col;
+            for(int i = 0; i < 4; i++){
+                int rr = fr + dir[i][0], cc = fc + dir[i][1];
+                if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
+                pixel = canvas.pixels[rr][cc];
+                if(pixel.getBackground() == null || pixel.getBackground() == ink){
+                    pixel.setBackground(pencil.getColor());
+                    pixel.setDefault(pixel.getBackground());
+                    queue.enqueue(rr, cc);
+                }
+            }
+        }
     }
 }
