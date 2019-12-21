@@ -1,12 +1,12 @@
-import javax.swing.JFrame;
-import java.awt.Dimension;
-import java.awt.Color;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+// import javax.swing.JFrame;
+// import java.awt.Dimension;
+// import java.awt.Color;
+// import javax.swing.JMenu;
+// import javax.swing.JMenuBar;
+// import javax.swing.JMenuItem;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+// import javax.swing.JPanel;
+// import javax.swing.JLabel;
 
 
 import java.awt.Point;
@@ -54,8 +54,18 @@ public class Frame extends JFrame{
         optionPanel.setLocation(710, 6);
         optionPanel.setSize(dim2);
         optionPanel.setBackground(new Color(230, 230, 230));
+        optionPanel.setLayout(null);
         add(optionPanel);
         // -Panel
+
+
+        // Option-
+        JButton setcolor = new JButton("");
+        setcolor.setSize(new Dimension(64, 64));
+        setcolor.setLocation(6, 6);
+        setcolor.addActionListener(new ButtonAction());
+        optionPanel.add(setcolor);
+        // -Button
 
         // Status-
         coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
@@ -193,8 +203,8 @@ public class Frame extends JFrame{
             color = Color.black;
             thickness = 1;
         }
-        public void setColor(){
-            
+        public void setColor(Color c){
+            color = c;
         }
         public Color getColor(){
             return color;
@@ -204,6 +214,12 @@ public class Frame extends JFrame{
         }
         public int getThick(){
             return thickness;
+        }
+    }
+
+    class ButtonAction implements ActionListener{
+        public void actionPerformed (ActionEvent e){
+            pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white));
         }
     }
 }
