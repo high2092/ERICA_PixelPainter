@@ -78,7 +78,7 @@ public class Frame extends JFrame{
         palette[4] = new Paint(new Color(34, 177, 76)); // green
         // -tte
         for(int i = 0; i < 5; i++){
-            palette[i].setLocation(6, 6 + i*66);
+            palette[i].setLocation(6, 6 + i*46);
             optionPanel.add(palette[i]);
         }
         // Status-
@@ -242,7 +242,7 @@ public class Frame extends JFrame{
     class Paint extends JPanel{
         private Color paintcolor;
         Paint(Color c){
-            setSize(new Dimension(60, 60));
+            setSize(new Dimension(40, 40));
             paintcolor = c;
             addMouseListener(new MouseAdapter() {
                 @Override
@@ -255,7 +255,7 @@ public class Frame extends JFrame{
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             g.setColor(paintcolor);
-            g.fillRect(0, 0, 60, 60);
+            g.fillRect(0, 0, 40, 40);
         }
     }
 }
