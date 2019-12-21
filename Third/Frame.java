@@ -27,13 +27,14 @@ public class Frame extends JFrame{
 
     JPanel statusPanel = new JPanel();
     JLabel coordinate;
+    JLabel mouselabel;
+    int mousestatus;
     JLabel mode;
 
     Pencil pencil = new Pencil();
 
 
     Point mouse = new Point(0,0);
-
 
     JPanel optionPanel = new JPanel();
     // MouseListener ml = new MouseListener();
@@ -83,7 +84,10 @@ public class Frame extends JFrame{
         }
         // Status-
         coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
+        mousestatus = 0;
         statusPanel.add(coordinate);
+        mouselabel = new JLabel("[ " + mousestatus + " ]");
+        statusPanel.add(mouselabel);
         // statusPanel.setLayout(null);
         // coordinate.setLocation(700, 0);
         // --
@@ -167,8 +171,18 @@ public class Frame extends JFrame{
                     setBackground(pencil.getColor());
                 }
     
+                // @Override
+                // public void mouseClicked(MouseEvent e) { // Click == Press + Release
+                //     if(defaultBackground == pencil.getColor()){
+                //         setBackground(new Color(245, 245, 245));
+                //     }
+                //     else{
+                //         setBackground(pencil.getColor());
+                //     }
+                //     defaultBackground = getBackground();
+                // }
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mousePressed(MouseEvent e) {
                     if(defaultBackground == pencil.getColor()){
                         setBackground(new Color(245, 245, 245));
                     }
@@ -176,8 +190,22 @@ public class Frame extends JFrame{
                         setBackground(pencil.getColor());
                     }
                     defaultBackground = getBackground();
+                    mousestatus = 1;
+                    mouselabel.setText("[ " + mousestatus + " ]");
                 }
-    
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // if(defaultBackground == pencil.getColor()){
+                    //     setBackground(new Color(245, 245, 245));
+                    // }
+                    // else{
+                    //     setBackground(pencil.getColor());
+                    // }
+                    defaultBackground = getBackground();
+                    mousestatus = 0;
+                    mouselabel.setText("[ " + mousestatus + " ]");
+                }
+                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     // mouse = e.getPoint();
