@@ -210,7 +210,7 @@ public class Frame extends JFrame{
                         setBackground(pencil.getColor());
                     }
                     else if(pencilstatus == 0){
-                        setBackground(new Color(238, 238, 238));
+                        setBackground(null);
                     }
                     if(mousestatus == 1){
                         defaultBackground = getBackground();
@@ -275,8 +275,8 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
-            if(color == null) color = new Color(238, 238, 238);
-            if(color.getRGB() != new Color(238, 238, 238).getRGB()){
+            // if(color == null) color = new Color(238, 238, 238);
+            if(color != null && color != new Color(238, 238, 238)){
                 if(pencilstatus == 0){
                     pencilstatus = 1;
                     mode.setText("Mode: PENCIL // ");
@@ -403,9 +403,10 @@ public class Frame extends JFrame{
         int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
         Pixel pixel = canvas.pixels[row][col];
         Color ink = pixel.getBackground();
+        if(ink == pencil.getColor()) return;
         pixel.setBackground(pencil.getColor());
         pixel.setDefault(pixel.getBackground());
-        Queue queue = new Queue(64*64);
+        Queue queue = new Queue(100*100);
         queue.enqueue(row, col);
         while(!queue.isEmpty()){
             // Pixel 
@@ -419,7 +420,7 @@ public class Frame extends JFrame{
                     pixel.setBackground(pencil.getColor());
                     pixel.setDefault(pixel.getBackground());
                     queue.enqueue(rr, cc);
-                    System.out.println("FLOODFILL: "+ rr + ", " + cc);
+                    // System.out.println("FLOODFILL: "+ rr + ", " + cc);
                 }
             }
         }
