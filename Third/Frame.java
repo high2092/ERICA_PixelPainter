@@ -83,7 +83,7 @@ public class Frame extends JFrame{
         eraser.addActionListener(new ButtonAction());
         optionPanel.add(eraser);
         bucket.setSize(dim_button);
-        bucket.setLocation(123, 140);
+        bucket.setLocation(123, 333);
         bucket.addActionListener(new ButtonAction());
         optionPanel.add(bucket);
         // -Button
@@ -257,8 +257,8 @@ public class Frame extends JFrame{
             });
         }
         public void Clear(){
-            setBackground(new Color(238, 238, 238));
-            defaultBackground = new Color(238, 238, 238);
+            setBackground(null);
+            defaultBackground = null;
         }
 
         public void setDefault(Color c){
@@ -277,8 +277,10 @@ public class Frame extends JFrame{
             color = c;
             if(color == null) color = new Color(238, 238, 238);
             if(color.getRGB() != new Color(238, 238, 238).getRGB()){
-                if(pencilstatus == 0) pencilstatus = 1;
-                mode.setText("Mode: PENCIL // ");
+                if(pencilstatus == 0){
+                    pencilstatus = 1;
+                    mode.setText("Mode: PENCIL // ");
+                }
             }
             else{
                 pencilstatus = 0;
@@ -304,7 +306,7 @@ public class Frame extends JFrame{
             // String temp = button.getText();
             if(button == setcolor) pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
             else if(button == eraser){
-                if(pencilstatus == 1){
+                if(pencilstatus != 0){
                     pencilstatus = 0;
                     mode.setText("Mode: ERASE // ");
                 }
@@ -363,7 +365,7 @@ public class Frame extends JFrame{
             col = c;
         }
     }
-    
+
     class Queue{
 
         private int rear;
