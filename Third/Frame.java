@@ -29,6 +29,7 @@ public class Frame extends JFrame{
     JLabel coordinate;
     JLabel mouselabel;
     int mousestatus;
+    int pencilstatus;
     JLabel mode;
 
     Pencil pencil = new Pencil();
@@ -43,6 +44,7 @@ public class Frame extends JFrame{
 
     JButton setcolor = new JButton("");
     JButton clear = new JButton("C");
+    JButton eraser = new JButton("");
 
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
@@ -63,16 +65,22 @@ public class Frame extends JFrame{
 
 
         // Option-
+        Dimension dim_button = new Dimension(64, 64);
         setcolor.setBackground(pencil.getColor());
-        setcolor.setSize(new Dimension(64, 64));
+        setcolor.setSize(dim_button);
         setcolor.setLocation(123, 3);
         setcolor.addActionListener(new ButtonAction());
         optionPanel.add(setcolor);
 
-        clear.setSize(new Dimension(64, 64));
-        clear.setLocation(123, 70);
+        clear.setSize(dim_button);
+        clear.setLocation(123, 137);
         clear.addActionListener(new ButtonAction());
         optionPanel.add(clear);
+        eraser.setSize(dim_button);
+        eraser.setBackground(new Color(240, 240, 240));
+        eraser.setLocation(123, 70);
+        eraser.addActionListener(new ButtonAction());
+        optionPanel.add(eraser);
         // -Button
 
 
@@ -88,7 +96,11 @@ public class Frame extends JFrame{
             palette[i].setLocation(6, 6 + i*46);
             optionPanel.add(palette[i]);
         }
+        
         // Status-
+        pencilstatus = 1;
+        mode = new JLabel("Mode: PENCIL // ");
+        statusPanel.add(mode);
         coordinate = new JLabel("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
         mousestatus = 0;
         statusPanel.add(coordinate);
@@ -170,11 +182,15 @@ public class Frame extends JFrame{
                 public void mouseEntered(MouseEvent e) {
                     mouse = e.getPoint();
                     mouse.setLocation(getLocation());
-                    setBackground(Color.black);
                     coordinate.setText("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
-                    setBackground(pencil.getColor());
-                    if(mousestatus == 1){
+                    // setBackground(pencil.getColor());
+                    if(pencilstatus == 1){
                         setBackground(pencil.getColor());
+                    }
+                    else{
+                        setBackground(new Color(240, 240, 240));
+                    }
+                    if(mousestatus == 1){
                         defaultBackground = getBackground();
                     }
                 }
@@ -191,8 +207,8 @@ public class Frame extends JFrame{
                 // }
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if(defaultBackground == pencil.getColor()){
-                        setBackground(new Color(245, 245, 245));
+                    if(pencilstatus == 0){
+                        setBackground(new Color(240, 240, 240));
                     }
                     else{
                         setBackground(pencil.getColor());
@@ -231,6 +247,10 @@ public class Frame extends JFrame{
 
             // addMouseListener(ml);
         }
+        public void Clear(){
+            setBackground(new Color(240, 240, 240));
+            defaultBackground = new Color(240, 240, 240);
+        }
     }
 
     // class MouseListener extends MouseAdapter implements MouseMotionListener{
@@ -264,6 +284,8 @@ public class Frame extends JFrame{
         public void setColor(Color c){
             color = c;
             setcolor.setBackground(c);
+            pencilstatus = 1;
+            mode.setText("Mode: PENCIL // ");
         }
         public Color getColor(){
             return color;
@@ -279,12 +301,23 @@ public class Frame extends JFrame{
     class ButtonAction implements ActionListener{
         public void actionPerformed (ActionEvent e){
             JButton button = (JButton)e.getSource();
-            String temp = button.getText();
-            if(temp == "") pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
-            else if(temp == "C"){
+            // String temp = button.getText();
+            if(button == setcolor) pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
+            else if(button == eraser){
+                if(pencilstatus == 1){
+                    pencilstatus = 0;
+                    mode.setText("Mode: ERASE // ");
+                }
+                else{
+                    pencilstatus = 1;
+                    mode.setText("Mode: PENCIL // ");
+                }
+                // pencilstatus = (pencilstatus+1)%2;
+            }
+            else if(button == clear){
                 for(int i = 0; i < 64; i++){
                     for(int j = 0; j < 64; j++){
-                        canvas.pixels[i][j].setBackground(new Color(240, 240, 240));
+                        canvas.pixels[i][j].Clear();
                     }
                 }
             }
