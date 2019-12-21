@@ -73,7 +73,7 @@ public class Frame extends JFrame{
         optionPanel.add(setcolor);
 
         clear.setSize(dim_button);
-        clear.setLocation(123, 520);
+        clear.setLocation(123, 400);
         clear.addActionListener(new ButtonAction());
         optionPanel.add(clear);
         eraser.setSize(dim_button);
@@ -88,7 +88,7 @@ public class Frame extends JFrame{
         Paint[] palette = new Paint[20];
         palette[0] = new Paint(new Color(0, 0, 0)); // black
         palette[1] = new Paint(new Color(127, 127, 127)); // gray
-        palette[2] = new Paint(new Color(136, 0, 21)); // burgundy
+        palette[2] = new Paint(new Color(136, 0, 21)); // brown
         palette[3] = new Paint(new Color(237, 28, 36)); // red
         palette[4] = new Paint(new Color(255, 127, 39)); // orange
         palette[5] = new Paint(new Color(255, 242, 0)); // yellow
@@ -99,10 +99,10 @@ public class Frame extends JFrame{
         palette[10] = new Paint(new Color(255, 255, 255)); // white
         palette[11] = new Paint(new Color(195, 195, 195)); // lightgray
             // pastel-
-        palette[12] = new Paint(new Color(185, 122, 87));
+        palette[12] = new Paint(new Color(204, 102, 0));
         palette[13] = new Paint(new Color(255, 174, 201)); 
         palette[14] = new Paint(new Color(255, 201, 14)); 
-        palette[15] = new Paint(new Color(239, 228, 176)); 
+        palette[15] = new Paint(new Color(255, 204, 153)); 
         palette[16] = new Paint(new Color(181, 230, 29)); 
         palette[17] = new Paint(new Color(153, 217, 234)); 
         palette[18] = new Paint(new Color(112, 146, 190));
@@ -156,13 +156,9 @@ public class Frame extends JFrame{
     class Canvas extends JPanel{
         int size = 64; //?
         Dimension dim_c = new Dimension(704, 704);
-        // MouseListener ml = new MouseListener();
         Pixel[][] pixels = new Pixel[64][64];
         public Canvas(){
-            // addMouseListener(ml);
-            // addMouseMotionListener(ml);
             setSize(dim_c);
-            // setLocation(0, 200);
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             for (int row = 0; row < size; row++) {
@@ -215,25 +211,17 @@ public class Frame extends JFrame{
                         defaultBackground = getBackground();
                     }
                 }
-    
-                // @Override
-                // public void mouseClicked(MouseEvent e) { // Click == Press + Release
-                //     if(defaultBackground == pencil.getColor()){
-                //         setBackground(new Color(245, 245, 245));
-                //     }
-                //     else{
-                //         setBackground(pencil.getColor());
-                //     }
-                //     defaultBackground = getBackground();
-                // }
+
                 @Override
                 public void mousePressed(MouseEvent e) {
                     // System.out.println(SwingUtilities.isLeftMouseButton(e));
+                    System.out.println(getBackground());
                     if(SwingUtilities.isLeftMouseButton(e)){
                         if(pencilstatus == 0){
-                            setBackground(new Color(238, 238, 238));
+                            setBackground(null);
+                            // System.out.println("Erase");
                         }
-                        else{
+                        else if(pencilstatus == 1){
                             setBackground(pencil.getColor());
                         }
                         defaultBackground = getBackground();
@@ -242,62 +230,32 @@ public class Frame extends JFrame{
                     }
                     else{ // RightMouseButton
                         pencil.setColor(defaultBackground);
-                        pencilstatus = 1;
-                        // mode.setText("Mode: PENCIL // ");
                     }
                 }
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    // if(defaultBackground == pencil.getColor()){
-                    //     setBackground(new Color(245, 245, 245));
-                    // }
-                    // else{
-                    //     setBackground(pencil.getColor());
-                    // }
-                    // defaultBackground = getBackground();
                     mousestatus = 0;
                     mouselabel.setText("Mouse Pressed: " + mousestatus);
                 }
                 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // mouse = e.getPoint();
-                    // JPanel n = new JPanel();
-                    // n.
-                    // mouse = ((JPanel)e.getSource()).getSource().getPoint();
-                    // coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
                     setBackground(defaultBackground);
                 }
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // System.out.println((int)mouse.getY()/11);
+                    if(pencilstatus == 2){
+                        BFS(canvas.pixels[(int)mouse.getY()/11][(int)mouse.getX()/11]);
+                    }
+                }
             });
-
-            // addMouseListener(ml);
         }
         public void Clear(){
             setBackground(new Color(238, 238, 238));
             defaultBackground = new Color(238, 238, 238);
         }
     }
-
-    // class MouseListener extends MouseAdapter implements MouseMotionListener{
-    //     @Override
-    //     public void mouseEntered(MouseEvent e) {
-    //         JPanel p = (JPanel)e.getSource();
-    //         defaultBackground = getBackground();
-    //         p.setBackground(Color.RED);
-    //         // setBackground(Color.black);
-    //     }
-
-    //     @Override
-    //     public void mouseClicked(MouseEvent e) {
-    //         setBackground(Color.black);
-    //         defaultBackground = getBackground();
-    //     }
-
-    //     @Override
-    //     public void mouseExited(MouseEvent e) {
-    //         setBackground(defaultBackground);
-    //     }
-    // }
 
     class Pencil{
         private Color color;
@@ -316,7 +274,7 @@ public class Frame extends JFrame{
             else{
                 pencilstatus = 0;
                 mode.setText("Mode: ERASE // ");
-                System.out.println("E");
+                // System.out.println("E");
             }
             setcolor.setBackground(color);
         }
@@ -376,5 +334,9 @@ public class Frame extends JFrame{
             g.setColor(paintcolor);
             g.fillRect(0, 0, 40, 40);
         }
+    }
+
+    public void BFS(Pixel pixel){
+
     }
 }
