@@ -128,6 +128,8 @@ public class Frame extends JFrame{
                     // JPanel p = (JPanel)e.getSource();
                     // defaultBackground = getBackground();
                     // p.setBackground(Color.RED);
+                    mouse = e.getPoint();
+                    coordinate.setText("(" + mouse.getX()/11 + ", " + mouse.getY()/11 + ")");
                     setBackground(pencil.getColor());
                 }
     
@@ -145,6 +147,10 @@ public class Frame extends JFrame{
                 @Override
                 public void mouseExited(MouseEvent e) {
                     setBackground(defaultBackground);
+                }
+                @Override // not work
+                public void mouseMoved(MouseEvent e){
+                    // System.out.println(mouse.getX());
                 }
             });
 
