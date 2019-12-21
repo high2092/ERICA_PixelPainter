@@ -96,13 +96,25 @@ public class Frame extends JFrame{
         palette[7] = new Paint(new Color(0, 162, 232)); // blue
         palette[8] = new Paint(new Color(63, 72, 204)); // deepblue
         palette[9] = new Paint(new Color(163, 73, 164)); // purple
+        palette[10] = new Paint(new Color(255, 255, 255)); // white
+        palette[11] = new Paint(new Color(195, 195, 195)); // lightgray
+            // pastel-
+        palette[12] = new Paint(new Color(185, 122, 87));
+        palette[13] = new Paint(new Color(255, 174, 201)); 
+        palette[14] = new Paint(new Color(255, 201, 14)); 
+        palette[15] = new Paint(new Color(239, 228, 176)); 
+        palette[16] = new Paint(new Color(181, 230, 29)); 
+        palette[17] = new Paint(new Color(153, 217, 234)); 
+        palette[18] = new Paint(new Color(112, 146, 190));
+        palette[19] = new Paint(new Color(200, 191, 231));
+            // -tone
         // -tte
         for(int i = 0; i < 10; i++){
             palette[i].setLocation(6, 6 + i*46);
             optionPanel.add(palette[i]);
         }
-        for(int i = 0; i < 10; i++){
-            palette[i].setLocation(46, 6 + i*46);
+        for(int i = 10; i < 20; i++){
+            palette[i].setLocation(52, 6 + (i-10)*46);
             optionPanel.add(palette[i]);
         }
         
