@@ -336,7 +336,7 @@ public class Frame extends JFrame{
         }
     }
     
-    class Queue {
+    class Queue{
         
         private int front;
         private int rear;
@@ -344,11 +344,29 @@ public class Frame extends JFrame{
         private Pixel[] queue;
     
 
-        public Queue(int i) {
-            front = -1;
-            rear = -1;
+        public Queue(int i){
+            // front = -1;
+            rear = 0;
             size = i;
             queue = new Pixel[size];
+        }
+
+        public boolean isEmpty(){
+            return rear == 0;
+        }
+
+        public void enqueue(Pixel item){
+            queue[rear++] = item;
+        }
+
+        public Pixel dequeue(){
+            // if(isEmpty()) return null;
+            Pixel ans = queue[0];
+            for(int i = 1; i < rear; i++){
+                queue[i-1] = queue[i]; 
+            }
+            rear--;
+            return ans;
         }
     }
     public void BFS(Pixel pixel){
