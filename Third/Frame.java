@@ -67,6 +67,17 @@ public class Frame extends JFrame{
         optionPanel.add(setcolor);
         // -Button
 
+
+        // Pale-
+        Paint[] palette = new Paint[10];
+        palette[0] = new Paint(new Color(0, 0, 0)); // black
+        palette[1] = new Paint(new Color(127, 127, 127)); // gray
+        palette[2] = new Paint(new Color(255, 127, 39)); // orange
+        palette[3] = new Paint(new Color(255, 242, 0)); // yellow
+        palette[4] = new Paint(new Color(34, 177, 76)); // green
+        // -tte
+
+        optionPanel.add(palette[0]);
         // Status-
         coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
         statusPanel.add(coordinate);
@@ -219,7 +230,28 @@ public class Frame extends JFrame{
 
     class ButtonAction implements ActionListener{
         public void actionPerformed (ActionEvent e){
-            pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white));
+            pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
+        }
+    }
+
+
+    class Paint extends JPanel{
+        private Color paintcolor;
+        Paint(Color c){
+            setSize(new Dimension(60, 60));
+            paintcolor = c;
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    pencil.setColor(paintcolor);
+                }
+            });
+        }
+
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            g.setColor(paintcolor);
+            g.fillRect(0, 0, 60, 60);
         }
     }
 }
