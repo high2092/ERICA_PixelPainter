@@ -101,8 +101,8 @@ public class Frame extends JFrame{
             palette[i].setLocation(6, 6 + i*46);
             optionPanel.add(palette[i]);
         }
-        for(int i = 10; i < 20; i++){
-            palette[i].setLocation(6, 6 + i*46);
+        for(int i = 0; i < 10; i++){
+            palette[i].setLocation(46, 6 + i*46);
             optionPanel.add(palette[i]);
         }
         
