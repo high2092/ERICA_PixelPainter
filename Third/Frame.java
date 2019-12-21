@@ -63,7 +63,7 @@ public class Frame extends JFrame{
         // Option-
         setcolor.setBackground(pencil.getColor());
         setcolor.setSize(new Dimension(64, 64));
-        setcolor.setLocation(70, 6);
+        setcolor.setLocation(123, 3);
         setcolor.addActionListener(new ButtonAction());
         optionPanel.add(setcolor);
         // -Button
@@ -147,6 +147,7 @@ public class Frame extends JFrame{
                     add(pixel, gbc);
                 }
             }
+            // pack()
         }
     }
     
@@ -177,6 +178,11 @@ public class Frame extends JFrame{
     
                 @Override
                 public void mouseExited(MouseEvent e) {
+                    mouse = e.getPoint();
+                    // JPanel n = new JPanel();
+                    // n.
+                    // mouse = ((JPanel)e.getSource()).getSource().getPoint();
+                    coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
                     setBackground(defaultBackground);
                 }
                 @Override // not work
@@ -219,6 +225,7 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
+            setcolor.setBackground(c);
         }
         public Color getColor(){
             return color;
@@ -234,7 +241,6 @@ public class Frame extends JFrame{
     class ButtonAction implements ActionListener{
         public void actionPerformed (ActionEvent e){
             pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
-            setcolor.setBackground(pencil.getColor());
         }
     }
 
