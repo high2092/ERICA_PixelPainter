@@ -40,6 +40,7 @@ public class Frame extends JFrame{
 
     // Color defaultBackground = Color.WHITE;
 
+    JButton setcolor = new JButton("");
 
     public Frame(){
         getContentPane().setBackground(Color.BLACK);
@@ -60,9 +61,9 @@ public class Frame extends JFrame{
 
 
         // Option-
-        JButton setcolor = new JButton("");
+        setcolor.setBackground(pencil.getColor());
         setcolor.setSize(new Dimension(64, 64));
-        setcolor.setLocation(6, 6);
+        setcolor.setLocation(70, 6);
         setcolor.addActionListener(new ButtonAction());
         optionPanel.add(setcolor);
         // -Button
@@ -76,8 +77,10 @@ public class Frame extends JFrame{
         palette[3] = new Paint(new Color(255, 242, 0)); // yellow
         palette[4] = new Paint(new Color(34, 177, 76)); // green
         // -tte
-
-        optionPanel.add(palette[0]);
+        for(int i = 0; i < 5; i++){
+            palette[i].setLocation(6, 6 + i*66);
+            optionPanel.add(palette[i]);
+        }
         // Status-
         coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
         statusPanel.add(coordinate);
@@ -231,6 +234,7 @@ public class Frame extends JFrame{
     class ButtonAction implements ActionListener{
         public void actionPerformed (ActionEvent e){
             pencil.setColor(JColorChooser.showDialog(null, "Color", Color.white)); // Cancel = error;
+            setcolor.setBackground(pencil.getColor());
         }
     }
 
