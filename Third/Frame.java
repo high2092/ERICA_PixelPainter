@@ -83,10 +83,10 @@ public class Frame extends JFrame{
             optionPanel.add(palette[i]);
         }
         // Status-
-        coordinate = new JLabel("(" + mouse.getX() + ", " + mouse.getY() + ")");
+        coordinate = new JLabel("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
         mousestatus = 0;
         statusPanel.add(coordinate);
-        mouselabel = new JLabel("[ " + mousestatus + " ]");
+        mouselabel = new JLabel("[ Mouse Pressed: " + mousestatus + " ]");
         statusPanel.add(mouselabel);
         // statusPanel.setLayout(null);
         // coordinate.setLocation(700, 0);
@@ -161,14 +161,15 @@ public class Frame extends JFrame{
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    // JPanel p = (JPanel)e.getSource();
-                    // defaultBackground = getBackground();
-                    // p.setBackground(Color.RED);
                     mouse = e.getPoint();
                     mouse.setLocation(getLocation());
                     setBackground(Color.black);
-                    coordinate.setText("(" + mouse.getX() + ", " + mouse.getY() + ")");
+                    coordinate.setText("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
                     setBackground(pencil.getColor());
+                    if(mousestatus == 1){
+                        setBackground(pencil.getColor());
+                        defaultBackground = getBackground();
+                    }
                 }
     
                 // @Override
@@ -191,7 +192,7 @@ public class Frame extends JFrame{
                     }
                     defaultBackground = getBackground();
                     mousestatus = 1;
-                    mouselabel.setText("[ " + mousestatus + " ]");
+                    mouselabel.setText("[ Mouse Pressed: " + mousestatus + " ]");
                 }
                 @Override
                 public void mouseReleased(MouseEvent e) {
@@ -203,7 +204,7 @@ public class Frame extends JFrame{
                     // }
                     defaultBackground = getBackground();
                     mousestatus = 0;
-                    mouselabel.setText("[ " + mousestatus + " ]");
+                    mouselabel.setText("[ Mouse Pressed: " + mousestatus + " ]");
                 }
                 
                 @Override
