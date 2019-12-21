@@ -308,12 +308,10 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
-            if(c == null) c = new Color(238, 238, 238);
-            else{
-                pencilstatus = 1;
-                mode.setText("Mode: PENCIL // ");
-            }
+            c.getRed();
             setcolor.setBackground(c);
+            pencilstatus = 1;
+            mode.setText("Mode: PENCIL // ");
         }
         public Color getColor(){
             return color;
