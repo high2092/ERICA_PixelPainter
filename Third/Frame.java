@@ -308,7 +308,7 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
-            c.getRed();
+            if(c != null) c.getRed();
             setcolor.setBackground(c);
             pencilstatus = 1;
             mode.setText("Mode: PENCIL // ");
