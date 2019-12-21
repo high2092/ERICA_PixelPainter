@@ -209,7 +209,7 @@ public class Frame extends JFrame{
                     if(pencilstatus == 1){
                         setBackground(pencil.getColor());
                     }
-                    else{
+                    else if(pencilstatus == 0){
                         setBackground(new Color(238, 238, 238));
                     }
                     if(mousestatus == 1){
@@ -277,7 +277,7 @@ public class Frame extends JFrame{
             color = c;
             if(color == null) color = new Color(238, 238, 238);
             if(color.getRGB() != new Color(238, 238, 238).getRGB()){
-                pencilstatus = 1;
+                if(pencilstatus == 0) pencilstatus = 1;
                 mode.setText("Mode: PENCIL // ");
             }
             else{
@@ -355,19 +355,20 @@ public class Frame extends JFrame{
         }
     }
     
+    public class Pair{
+        public int row;
+        public int col;
+        public Pair(int r, int c){
+            row = r;
+            col = c;
+        }
+    }
+    
     class Queue{
 
         private int rear;
         private int size;
 
-        private class Pair{
-            private int row;
-            private int col;
-            public Pair(int r, int c){
-                row = r;
-                col = c;
-            }
-        }
         private Pair[] queue;
     
 
@@ -397,26 +398,28 @@ public class Frame extends JFrame{
         }
     }
     public void BFS(int row, int col){
-        int[][] dir = {{1,-1,0,0}, {0,0,1,-1}};
+        int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
         Pixel pixel = canvas.pixels[row][col];
         Color ink = pixel.getBackground();
         pixel.setBackground(pencil.getColor());
         pixel.setDefault(pixel.getBackground());
         Queue queue = new Queue(64*64);
         queue.enqueue(row, col);
-        // while(!queue.isEmpty()){
-        //     // Pixel 
-        //     int fr = queue.dequeue().row, fc = queue.dequeue().col;
-        //     for(int i = 0; i < 4; i++){
-        //         int rr = fr + dir[i][0], cc = fc + dir[i][1];
-        //         if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
-        //         pixel = canvas.pixels[rr][cc];
-        //         if(pixel.getBackground() == null || pixel.getBackground() == ink){
-        //             pixel.setBackground(pencil.getColor());
-        //             pixel.setDefault(pixel.getBackground());
-        //             queue.enqueue(rr, cc);
-        //         }
-        //     }
-        // }
+        while(!queue.isEmpty()){
+            // Pixel 
+            Pair pair = queue.dequeue();
+            int fr = pair.row, fc = pair.col;
+            for(int i = 0; i < 4; i++){
+                int rr = fr + dir[i][0], cc = fc + dir[i][1];
+                if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
+                pixel = canvas.pixels[rr][cc];
+                if(pixel.getBackground() == null || pixel.getBackground() == ink){
+                    pixel.setBackground(pencil.getColor());
+                    pixel.setDefault(pixel.getBackground());
+                    queue.enqueue(rr, cc);
+                    System.out.println("FLOODFILL: "+ rr + ", " + cc);
+                }
+            }
+        }
     }
 }
