@@ -243,7 +243,7 @@ public class Frame extends JFrame{
                     else{ // RightMouseButton
                         pencil.setColor(defaultBackground);
                         pencilstatus = 1;
-                        mode.setText("Mode: PENCIL // ");
+                        // mode.setText("Mode: PENCIL // ");
                     }
                 }
                 @Override
@@ -308,10 +308,17 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
-            if(c != null) c.getRed();
-            setcolor.setBackground(c);
-            pencilstatus = 1;
-            mode.setText("Mode: PENCIL // ");
+            if(color == null) color = new Color(238, 238, 238);
+            if(color.getRGB() != new Color(238, 238, 238).getRGB()){
+                pencilstatus = 1;
+                mode.setText("Mode: PENCIL // ");
+            }
+            else{
+                pencilstatus = 0;
+                mode.setText("Mode: ERASE // ");
+                System.out.println("E");
+            }
+            setcolor.setBackground(color);
         }
         public Color getColor(){
             return color;
