@@ -85,14 +85,23 @@ public class Frame extends JFrame{
 
 
         // Pale-
-        Paint[] palette = new Paint[10];
+        Paint[] palette = new Paint[20];
         palette[0] = new Paint(new Color(0, 0, 0)); // black
         palette[1] = new Paint(new Color(127, 127, 127)); // gray
-        palette[2] = new Paint(new Color(255, 127, 39)); // orange
-        palette[3] = new Paint(new Color(255, 242, 0)); // yellow
-        palette[4] = new Paint(new Color(34, 177, 76)); // green
+        palette[2] = new Paint(new Color(136, 0, 21)); // burgundy
+        palette[3] = new Paint(new Color(237, 28, 36)); // red
+        palette[4] = new Paint(new Color(255, 127, 39)); // orange
+        palette[5] = new Paint(new Color(255, 242, 0)); // yellow
+        palette[6] = new Paint(new Color(34, 177, 76)); // green
+        palette[7] = new Paint(new Color(0, 162, 232)); // blue
+        palette[8] = new Paint(new Color(63, 72, 204)); // deepblue
+        palette[9] = new Paint(new Color(163, 73, 164)); // purple
         // -tte
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 10; i++){
+            palette[i].setLocation(6, 6 + i*46);
+            optionPanel.add(palette[i]);
+        }
+        for(int i = 10; i < 20; i++){
             palette[i].setLocation(6, 6 + i*46);
             optionPanel.add(palette[i]);
         }
@@ -101,10 +110,10 @@ public class Frame extends JFrame{
         pencilstatus = 1;
         mode = new JLabel("Mode: PENCIL // ");
         statusPanel.add(mode);
-        coordinate = new JLabel("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
+        coordinate = new JLabel("Coordinate = (" + mouse.getX() + ", " + mouse.getY() + ") // ");
         mousestatus = 0;
         statusPanel.add(coordinate);
-        mouselabel = new JLabel("[ Mouse Pressed: " + mousestatus + " ]");
+        mouselabel = new JLabel("Mouse Pressed: " + mousestatus);
         statusPanel.add(mouselabel);
         // statusPanel.setLayout(null);
         // coordinate.setLocation(700, 0);
@@ -182,7 +191,7 @@ public class Frame extends JFrame{
                 public void mouseEntered(MouseEvent e) {
                     mouse = e.getPoint();
                     mouse.setLocation(getLocation());
-                    coordinate.setText("(x, y) = (" + mouse.getX() + ", " + mouse.getY() + ")");
+                    coordinate.setText("Coordinate = (" + mouse.getX() + ", " + mouse.getY() + ") // ");
                     // setBackground(pencil.getColor());
                     if(pencilstatus == 1){
                         setBackground(pencil.getColor());
@@ -215,7 +224,7 @@ public class Frame extends JFrame{
                     }
                     defaultBackground = getBackground();
                     mousestatus = 1;
-                    mouselabel.setText("[ Mouse Pressed: " + mousestatus + " ]");
+                    mouselabel.setText("Mouse Pressed: " + mousestatus);
                 }
                 @Override
                 public void mouseReleased(MouseEvent e) {
@@ -227,7 +236,7 @@ public class Frame extends JFrame{
                     // }
                     defaultBackground = getBackground();
                     mousestatus = 0;
-                    mouselabel.setText("[ Mouse Pressed: " + mousestatus + " ]");
+                    mouselabel.setText("Mouse Pressed: " + mousestatus);
                 }
                 
                 @Override
