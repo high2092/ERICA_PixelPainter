@@ -335,7 +335,22 @@ public class Frame extends JFrame{
             g.fillRect(0, 0, 40, 40);
         }
     }
+    
+    class Queue {
+        
+        private int front;
+        private int rear;
+        private int size;
+        private Pixel[] queue;
+    
 
+        public Queue(int i) {
+            front = -1;
+            rear = -1;
+            size = i;
+            queue = new Pixel[size];
+        }
+    }
     public void BFS(Pixel pixel){
 
     }
