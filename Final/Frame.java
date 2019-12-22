@@ -278,7 +278,7 @@ public class Frame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     // System.out.println((int)mouse.getY()/11);
-                    if(pencilstatus == 2){
+                    if(pencilstatus == 2 && SwingUtilities.isLeftMouseButton(e)){
                         BFS((int)mouse.getY()/11, (int)mouse.getX()/11);
                     }
                 }
@@ -432,9 +432,11 @@ public class Frame extends JFrame{
     public void BFS(int row, int col){
         int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
         Pixel pixel = canvas.pixels[row][col];
-        Color ink = pixel.getBackground();
-        if(ink == pencil.getColor()) return;
-        if(pencil.getColor() == null && ink.getRGB() == new Color(238, 238, 238).getRGB()) return;
+        Color root = pixel.getBackground();
+        if(root == pencil.getColor()) return;
+
+        if(pencil.getColor() == null && root.getRGB() == new Color(238, 238, 238).getRGB()) return;
+        
         pixel.setBackground(pencil.getColor());
         pixel.setDefault(pixel.getBackground());
         Queue queue = new Queue(100*100);
@@ -448,7 +450,7 @@ public class Frame extends JFrame{
                     int rr = fr + dir[i][0], cc = fc + dir[i][1];
                     if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
                     pixel = canvas.pixels[rr][cc];
-                    if(pixel.getBackground() == null || pixel.getBackground() == ink){
+                    if(pixel.getBackground() == null || pixel.getBackground() == root){
                         pixel.setBackground(null);
                         pixel.setDefault(null);
                         queue.enqueue(rr, cc);
@@ -466,7 +468,10 @@ public class Frame extends JFrame{
                     int rr = fr + dir[i][0], cc = fc + dir[i][1];
                     if(rr < 0 || rr >= 64 || cc < 0 || cc >= 64) continue;
                     pixel = canvas.pixels[rr][cc];
-                    if(pixel.getBackground() == null || pixel.getBackground() == ink){
+                    // System.out.println(pixel.getBackground());
+                    // System.out.println(pixel.getBackground() == null);
+                    // System.out.println("root: "+ root + ", pixel: " + pixel.getBackground());
+                    if(pixel.getBackground() == null || pixel.getBackground().getRGB() == root.getRGB()){
                         pixel.setBackground(pencil.getColor());
                         pixel.setDefault(pixel.getBackground());
                         queue.enqueue(rr, cc);
