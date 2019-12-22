@@ -2,7 +2,8 @@
 Hanyang Univ. ERICA Open Source Software Project
 <br><br>2019036844 하현우
 ## What's this?
-픽셀아트 그리기에 최적화된 그림판
+픽셀아트 그리기에 최적화된 그림판<br>
+![KakaoTalk_20191221_195303656](https://user-images.githubusercontent.com/55306894/71321485-48819880-24fd-11ea-9364-aa32bab309b1.png)
 
 ## How to use
 
