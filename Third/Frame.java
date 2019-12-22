@@ -18,6 +18,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 
+import java.io.File;
+import java.io.FileWriter;
+
 public class Frame extends JFrame{
     Dimension dim_f = new Dimension(900, 800);
     Dimension dim2 = new Dimension(190, 704);
@@ -156,7 +159,14 @@ public class Frame extends JFrame{
         // -bar
         JMenuItem save = new JMenuItem("Save");
         file.add(save);
+        save.addActionListener(new SaveAction());
         // -Menuitem
+    }
+    class SaveAction implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            Save(canvas.pixels);
+            // System.out.println("Saved");
+        }
     }
     class Canvas extends JPanel{
         int size = 64; //?
@@ -450,6 +460,34 @@ public class Frame extends JFrame{
                 }
             }
 
+        }
+    }
+
+    public void Save(Pixel[][] pixels){
+         
+        String fileName = "result" ;
+         
+        try{
+             
+            File file = new File(fileName) ;
+             
+            FileWriter fw = new FileWriter(file, true) ;
+
+            int R, G, B;
+            for(int i = 0; i < 64; i++){
+                for(int j = 0; j < 64; j++){
+                    R = pixels[i][j].getBackground().getRed();
+                    G = pixels[i][j].getBackground().getGreen();
+                    B = pixels[i][j].getBackground().getBlue();
+                    fw.write(R + " " + G + " " + B + "\n");
+                    fw.flush();
+                }
+            }
+            fw.close();
+             
+             
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
