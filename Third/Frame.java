@@ -21,6 +21,13 @@ import javax.swing.border.*;
 import java.io.File;
 import java.io.FileWriter;
 
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.util.StringTokenizer;
+
 public class Frame extends JFrame{
     Dimension dim_f = new Dimension(900, 800);
     Dimension dim2 = new Dimension(190, 704);
@@ -160,12 +167,20 @@ public class Frame extends JFrame{
         JMenuItem save = new JMenuItem("Save");
         file.add(save);
         save.addActionListener(new SaveAction());
+        JMenuItem open = new JMenuItem("Open");
+        file.add(open);
+        open.addActionListener(new OpenAction());
         // -Menuitem
     }
     class SaveAction implements ActionListener{
         public void actionPerformed(ActionEvent e){
             Save(canvas.pixels);
             // System.out.println("Saved");
+        }
+    }
+    class OpenAction implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            Open();
         }
     }
     class Canvas extends JPanel{
@@ -465,13 +480,12 @@ public class Frame extends JFrame{
 
     public void Save(Pixel[][] pixels){
          
-        String fileName = "result" ;
          
         try{
              
-            File file = new File(fileName) ;
+            File file = new File("result");
              
-            FileWriter fw = new FileWriter(file, true) ;
+            FileWriter fw = new FileWriter(file) ;
 
             int R, G, B;
             for(int i = 0; i < 64; i++){
@@ -484,10 +498,50 @@ public class Frame extends JFrame{
                 }
             }
             fw.close();
+            System.out.println("Saved");
              
              
         }catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void Open(){
+        try{
+             
+            File file = new File("result");
+             
+            FileReader fr = new FileReader(file) ;
+            BufferedReader bufReader = new BufferedReader(fr);
+            String line = "";
+            StringTokenizer tk;
+            int R, G, B;
+            for(int i = 0; i < 64; i++){
+                for(int j = 0; j < 64; j++){
+                    line = bufReader.readLine();
+                    tk = new StringTokenizer(line);
+                    R = Integer.parseInt(tk.nextToken());
+                    G = Integer.parseInt(tk.nextToken());
+                    B = Integer.parseInt(tk.nextToken());
+                    // System.out.println(line);
+                    // System.out.println(R);
+                    if(R == 238 && G == 238 && B == 238){
+                        canvas.pixels[i][j].setBackground(null);
+                        canvas.pixels[i][j].setDefault(null);
+                    }
+                    else{
+                        canvas.pixels[i][j].setBackground(new Color(R, G, B));
+                        canvas.pixels[i][j].setDefault(new Color(R, G, B));
+                    }
+
+                }
+            }
+            fr.close();
+            System.out.println("Opened");
+             
+             
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 }
