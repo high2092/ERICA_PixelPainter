@@ -479,69 +479,69 @@ public class Frame extends JFrame{
     }
 
     public void Save(Pixel[][] pixels){
-         
-         
-        try{
+        JFileChooser jfc = new JFileChooser();
+        if(jfc.showSaveDialog(null) == 0){
              
-            File file = new File("result");
-             
-            FileWriter fw = new FileWriter(file) ;
-
-            int R, G, B;
-            for(int i = 0; i < 64; i++){
-                for(int j = 0; j < 64; j++){
-                    R = pixels[i][j].getBackground().getRed();
-                    G = pixels[i][j].getBackground().getGreen();
-                    B = pixels[i][j].getBackground().getBlue();
-                    fw.write(R + " " + G + " " + B + "\n");
-                    fw.flush();
+            File file = jfc.getSelectedFile();
+            try{
+                FileWriter fw = new FileWriter(file) ;
+                int R, G, B;
+                for(int i = 0; i < 64; i++){
+                    for(int j = 0; j < 64; j++){
+                        R = pixels[i][j].getBackground().getRed();
+                        G = pixels[i][j].getBackground().getGreen();
+                        B = pixels[i][j].getBackground().getBlue();
+                        fw.write(R + " " + G + " " + B + "\n");
+                        fw.flush();
+                    }
                 }
+                fw.close();
+                System.out.println("Saved");
+                 
+                 
+            }catch(Exception e){
+                e.printStackTrace();
             }
-            fw.close();
-            System.out.println("Saved");
-             
-             
-        }catch(Exception e){
-            e.printStackTrace();
         }
     }
 
     public void Open(){
-        try{
-             
-            File file = new File("result");
-             
-            FileReader fr = new FileReader(file) ;
-            BufferedReader bufReader = new BufferedReader(fr);
-            String line = "";
-            StringTokenizer tk;
-            int R, G, B;
-            for(int i = 0; i < 64; i++){
-                for(int j = 0; j < 64; j++){
-                    line = bufReader.readLine();
-                    tk = new StringTokenizer(line);
-                    R = Integer.parseInt(tk.nextToken());
-                    G = Integer.parseInt(tk.nextToken());
-                    B = Integer.parseInt(tk.nextToken());
-                    // System.out.println(line);
-                    // System.out.println(R);
-                    if(R == 238 && G == 238 && B == 238){
-                        canvas.pixels[i][j].setBackground(null);
-                        canvas.pixels[i][j].setDefault(null);
+        JFileChooser jfc = new JFileChooser();
+        if(jfc.showOpenDialog(null) == 0){
+            File file = jfc.getSelectedFile();
+            try{             
+                FileReader fr = new FileReader(file) ;
+                BufferedReader bufReader = new BufferedReader(fr);
+                String line = "";
+                StringTokenizer tk;
+                int R, G, B;
+                for(int i = 0; i < 64; i++){
+                    for(int j = 0; j < 64; j++){
+                        line = bufReader.readLine();
+                        tk = new StringTokenizer(line);
+                        R = Integer.parseInt(tk.nextToken());
+                        G = Integer.parseInt(tk.nextToken());
+                        B = Integer.parseInt(tk.nextToken());
+                        // System.out.println(line);
+                        // System.out.println(R);
+                        if(R == 238 && G == 238 && B == 238){
+                            canvas.pixels[i][j].setBackground(null);
+                            canvas.pixels[i][j].setDefault(null);
+                        }
+                        else{
+                            canvas.pixels[i][j].setBackground(new Color(R, G, B));
+                            canvas.pixels[i][j].setDefault(new Color(R, G, B));
+                        }
+    
                     }
-                    else{
-                        canvas.pixels[i][j].setBackground(new Color(R, G, B));
-                        canvas.pixels[i][j].setDefault(new Color(R, G, B));
-                    }
-
                 }
+                fr.close();
+                System.out.println("Opened");
+                 
+                 
+            }catch(Exception e){
+                System.out.println(e);
             }
-            fr.close();
-            System.out.println("Opened");
-             
-             
-        }catch(Exception e){
-            System.out.println(e);
         }
     }
 }
