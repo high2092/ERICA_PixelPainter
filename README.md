@@ -15,6 +15,7 @@ Hanyang Univ. ERICA Open Source Software Project
 <br>&nbsp;&nbsp;&nbsp;&nbsp;Q. 프로그램을 실행했는데, 빈 검은 화면이 뜹니다.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;A: 간헐적인 현상입니다. 창 크기를 크게 했다가 줄이시면 정상적인 화면이 표시됩니다.
 
+<br> 자세한 사용법은 wiki를 참조해주세요.
 ## Help
 
 
