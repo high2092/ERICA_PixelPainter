@@ -78,7 +78,7 @@ public class Frame extends JFrame{
         clear.addActionListener(new ButtonAction());
         optionPanel.add(clear);
         eraser.setSize(dim_button);
-        eraser.setBackground(new Color(238, 238, 238));
+        eraser.setBackground(null);
         eraser.setLocation(123, 70);
         eraser.addActionListener(new ButtonAction());
         optionPanel.add(eraser);
@@ -210,7 +210,8 @@ public class Frame extends JFrame{
                         setBackground(pencil.getColor());
                     }
                     else if(pencilstatus == 0){
-                        setBackground(new Color(238, 238, 238));
+                        setBackground(null);
+                        // System.out.println("erase");
                     }
                     if(mousestatus == 1){
                         defaultBackground = getBackground();
@@ -224,17 +225,19 @@ public class Frame extends JFrame{
                     if(SwingUtilities.isLeftMouseButton(e)){
                         if(pencilstatus == 0){
                             setBackground(null);
+                            defaultBackground = null;
                             // System.out.println("Erase");
                         }
                         else if(pencilstatus == 1){
                             setBackground(pencil.getColor());
+                            defaultBackground = getBackground();
                         }
-                        defaultBackground = getBackground();
                         mousestatus = 1;
                         mouselabel.setText("Mouse Pressed: " + mousestatus);
                     }
                     else{ // RightMouseButton
                         pencil.setColor(defaultBackground);
+                        // System.out.println(defaultBackground);
                     }
                 }
                 @Override
@@ -275,19 +278,21 @@ public class Frame extends JFrame{
         }
         public void setColor(Color c){
             color = c;
-            if(color == null) color = new Color(238, 238, 238);
-            if(color.getRGB() != new Color(238, 238, 238).getRGB()){
+            // if(color == null) color = new Color(238, 238, 238);
+            if(color != null && color.getRGB() != new Color(238, 238, 238).getRGB()){
                 if(pencilstatus == 0){
                     pencilstatus = 1;
                     mode.setText("Mode: PENCIL // ");
+                    setcolor.setBackground(color);
+                    // System.out.println("null!!");
                 }
             }
             else{
                 pencilstatus = 0;
                 mode.setText("Mode: ERASE // ");
                 // System.out.println("E");
+                setcolor.setBackground(null);
             }
-            setcolor.setBackground(color);
         }
         public Color getColor(){
             return color;
@@ -403,9 +408,10 @@ public class Frame extends JFrame{
         int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
         Pixel pixel = canvas.pixels[row][col];
         Color ink = pixel.getBackground();
+        if(ink == pencil.getColor()) return;
         pixel.setBackground(pencil.getColor());
         pixel.setDefault(pixel.getBackground());
-        Queue queue = new Queue(64*64);
+        Queue queue = new Queue(100*100);
         queue.enqueue(row, col);
         while(!queue.isEmpty()){
             // Pixel 
@@ -419,7 +425,7 @@ public class Frame extends JFrame{
                     pixel.setBackground(pencil.getColor());
                     pixel.setDefault(pixel.getBackground());
                     queue.enqueue(rr, cc);
-                    System.out.println("FLOODFILL: "+ rr + ", " + cc);
+                    // System.out.println("FLOODFILL: "+ rr + ", " + cc);
                 }
             }
         }
